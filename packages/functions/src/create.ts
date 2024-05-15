@@ -2,6 +2,7 @@ import * as uuid from "uuid";
 import { Table } from "sst/node/table";
 import handler from "@notes/core/handler";
 import dynamoDb from "@notes/core/dynamodb";
+import * as iam from 'aws-cdk-lib/aws-iam';
 
 export const main = handler(async (event) => {
     let data = {
@@ -17,7 +18,7 @@ export const main = handler(async (event) => {
       TableName: Table.Notes.tableName,
       Item: {
         // The attributes of the item to be created
-        userId: "123", // The id of the author
+        userId: event.requestContext.authorizer?.iam.cognitoIdentity.identityId,// The id of the author
         noteId: uuid.v1(), // A unique uuid
         content: data.content, // Parsed from request body
         attachment: data.attachment, // Parsed from request body
