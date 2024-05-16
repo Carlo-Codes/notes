@@ -1,0 +1,12 @@
+apig-test aws-api-gateway-cli-test \
+--user-pool-id='eu-west-2_WcUHC0P50' \
+--app-client-id='j354u2kiji539mhht1uo5lg4f' \
+--cognito-region='eu-west-2' \
+--identity-pool-id='eu-west-2:68796efb-1cde-4d9a-b138-0e61a581eb96' \
+--invoke-url='https://o4cmw9f9a9.execute-api.eu-west-2.amazonaws.com' \
+--api-gateway-region='eu-west-2' \
+--username='carlo.scrocca+notes@mezze.io' \
+--password='Passw0rd!' \
+--path-template='/notes' \
+--method='POST' \
+--body='{"content":"hello world","attachment":"hello.jpg"}'
