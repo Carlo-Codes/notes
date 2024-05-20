@@ -1,24 +1,79 @@
 
-
-import  Routes from './routes.tsx';
+import { Route, RouteProps, Routes } from "react-router-dom";
 import './App.css'
-import Nav from "react-bootstrap/Nav";
-import { Navbar } from 'react-bootstrap';
+import Navbar from './containers/navBar/NavBar.tsx';
+import NavItem from './containers/navItem/navItem.tsx';
+import NotFound from "./containers/notFound/notfound.tsx";
+import Home from './containers/home/home';
+
+interface IRoutes extends Omit<RouteProps, "children">{
+  name?:string,
+  //route:string
+}
+
+
+export const navbarItems:IRoutes[] = [
+  {
+    name: "Notes",
+    path: '/notes'
+  },
+  {
+    name: "Create New Note",
+    path: '/newNote'
+  },
+  {
+    name: "Home",
+    path: '/',
+    element: <Home/>
+  },
+]
+
+const misc:IRoutes[] = [
+  {
+    name: "Not Found",
+    path: '*',
+    element : <NotFound/>
+  },
+
+  {
+    name: "Note",
+    path: '*',
+    element : "/note/:id"
+  }
+]
+
+const miscRoutes = misc.map(item => {
+  return (
+    <Route path={item.path} element={item.element}/>
+  )
+})
+
+const navbarRoutes = navbarItems.map(item => {
+  return (
+    <Route path={item.path} element={item.element}/>
+  )
+})
+
+
+
+const navBarItemsComponents = navbarItems.map(item => {
+  const navitem = item.name && item.path ? <NavItem name={item.name} route={item.path}/> : null
+  return (
+    navitem
+  )
+})
+
+
 
 function App() {
   return (
-    <div className="App container py-3">
-      <Navbar collapseOnSelect bg="light" expand="md" className="mb-3 px-3">
-        <Navbar.Brand className="fw-bold text-muted">Scratch</Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <Nav.Link href="/signup">Signup</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
+    <div className="App">
+      <Navbar>
+        {navBarItemsComponents}
       </Navbar>
-      <Routes />
+      <Routes>
+        {[...navbarRoutes, ...miscRoutes]}
+      </Routes>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./home.css";
 
 import { API, Auth } from "aws-amplify";
-import { NoteType } from "../types/note";
+import { NoteType } from "../../types/note";
 //import config from "./../config"
 
 export default function Home() {
@@ -59,11 +59,6 @@ export default function Home() {
         }
         return noteDivs
     }
-
-
-
-
-
 
   return (
     <div className="Home">
