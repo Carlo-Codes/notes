@@ -11,7 +11,7 @@ export const main = handler(async (event) => {
     },
   };
 
-  await dynamoDb.delete(params);
+  const test = await dynamoDb.delete(params);
 
   return JSON.stringify({ status: true });
 });

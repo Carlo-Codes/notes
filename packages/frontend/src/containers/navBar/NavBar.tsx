@@ -8,7 +8,6 @@ type IProps = {
 export default function Navbar({children}:IProps):ReactNode{
     return (
         <div className="navBar">
-            hello
             {children}
         </div>
     )
